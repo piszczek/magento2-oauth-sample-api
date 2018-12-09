@@ -1,0 +1,17 @@
+{
+    "name": "piszczek/magento2-oauth-sample-api",
+    "authors": [
+        {
+            "name": "Andrzej Piszczek",
+            "email": "andpis58@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require": {
+        "lusitanian/oauth": "~0.8.10"
+    }
+}
