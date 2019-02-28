@@ -1,42 +1,15 @@
-# Magento2 API example using OAuth 
+# Magento2 API tester example using OAuth 
 
 
 #### First run:
  `composer install`
 
-Follow instruction from: https://inviqa.com/blog/magento-2-tutorial-overview-web-api (Setting up an Integration) and 
- set required parameters in `config.php`.
- 
- 
+Follow instruction from: https://inviqa.com/blog/magento-2-tutorial-overview-web-api (Setting up an Integration) to get required params
 ### Run app
-in `ApiTester.php` set `requestUrl` and run
+in project directory run:
 
-`php ApiTester.php`
+`php -S localhost:8000`
 
-or set up webserver and run ApiTester.php file. It should return list of products.
+Then open your browser on http://localhost:8000/ and you should see:
 
-
-
-
-
-```
-   $method = 'GET';
-   $requestUrl = '; //resource url 
-   
-   $oauthGenerator = new \App\OAuthGenerator($consumerKey, $consumerSecret, $accessToken, $accessTokenSecret);
-   
-   $curl = curl_init();
-   curl_setopt_array($curl, [
-       CURLOPT_RETURNTRANSFER => 1,
-       CURLOPT_URL => $requestUrl,
-       CURLOPT_HTTPHEADER => [
-           $oauthGenerator->getAuthorizationHeader($requestUrl, $method)
-       ]
-   ]);
-   
-   $result = curl_exec($curl);
-   curl_close($curl);
-   
-   header('Content-Type: application/json');
-   echo $result;
-```
+![Alt text](docs/example.jpg "Example request")

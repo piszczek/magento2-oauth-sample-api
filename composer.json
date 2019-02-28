@@ -12,6 +12,7 @@
         }
     },
     "require": {
-        "lusitanian/oauth": "~0.8.10"
+        "lusitanian/oauth": "~0.8.10",
+        "ext-curl": "*"
     }
 }
