@@ -18,15 +18,22 @@ if ($_GET['isAjax'] ?? false) {
     $oauthGenerator = new \App\OAuthGenerator($consumerKey, $consumerSecret, $accessToken, $accessTokenSecret);
 
     $curl = curl_init();
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonBody);
+
+    $curlOptHttpHeader = [];
+    if (!empty($jsonBody) || $method === 'POST') {
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonBody);
+        $curlOptHttpHeader = [
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($jsonBody),
+        ];
+    }
+
     curl_setopt_array($curl, [
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_URL => $requestUrl,
-        CURLOPT_HTTPHEADER => [
+        CURLOPT_HTTPHEADER => array_merge($curlOptHttpHeader, [
             $oauthGenerator->getAuthorizationHeader($requestUrl, $method),
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen($jsonBody),
-        ],
+        ]),
     ]);
 
     $result = curl_exec($curl);
@@ -109,9 +116,9 @@ if ($_GET['isAjax'] ?? false) {
             var params = new FormData(form);
 
             var methodElement = document.getElementById("method");
-            var method = methodElement.options[methodElement.selectedIndex].value;
+            // var method = methodElement.options[methodElement.selectedIndex].value;
 
-            http.open(method, '?isAjax=1', true);
+            http.open('post', '?isAjax=1', true);
 
             http.onreadystatechange = function() {//Call a function when the state changes.
                 try {
